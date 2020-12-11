@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense, useEffect } from 'react'
+import './App.css'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+import Theme from './components/Theme'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
+import pagesSpecs from './pages'
+import action from './redux/action'
+import { INIT_POSTS } from './redux/types'
+import { ToastContainer, toast } from 'react-toastify'
+
+const pages = pagesSpecs.map((spec) => ({
+  Component: lazy(() => import(`./pages/${spec.name}`)),
+  options: {
+    key: spec.name,
+    path: spec.path,
+    exact: !spec.isSubrouter
+  }
+}))
 
 function App() {
+  useEffect(() => {
+    action(INIT_POSTS)
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <Theme>
+        <Suspense fallback={<div />}>
+          <ToastContainer
+            position='bottom-right'
+            closeOnClick
+            style={{ paddingTop: 'env(safe-area-inset-top)' }}
+            bodyClassName='srf-toast-body'
+          />
+          <div className='App'>
+            <Router>
+              <Switch>
+                {pages.map((page, i) => (
+                  <Route component={page.Component} {...page.options} />
+                ))}
+                <Redirect to='/feed' />
+              </Switch>
+            </Router>
+          </div>
+        </Suspense>
+      </Theme>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
