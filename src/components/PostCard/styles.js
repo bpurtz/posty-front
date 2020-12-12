@@ -6,7 +6,10 @@ const styles = {
   },
   title: {
     fontSize: '1.2em',
-    fontWeight: '500'
+    fontWeight: '500',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.3)',
+    paddingBottom: '0.25em',
+    marginBottom: '0.25em'
   },
   body: {}
 }
