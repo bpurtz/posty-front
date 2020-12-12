@@ -37,6 +37,7 @@ const PaginateArrows = ({
   return (
     <div className={classes.pagination_wrap + ' ' + className}>
       <Button
+        className='paginate-back'
         disabled={pagination.offset === 0}
         onClick={() => {
           handlePagination('back')
@@ -45,6 +46,7 @@ const PaginateArrows = ({
         {'<'}
       </Button>
       <Button
+        className='paginate-forward'
         disabled={forwardDisabled}
         onClick={() => {
           handlePagination('forward')

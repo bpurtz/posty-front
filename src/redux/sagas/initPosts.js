@@ -2,8 +2,9 @@ import { put, takeEvery, call } from 'redux-saga/effects'
 import getPostsData from '../../data/getPostsData'
 import { INIT_POSTS } from '../types'
 
-function* getPosts() {
+export function* initPosts() {
   try {
+    console.log('SAGA INIT')
     yield put({ type: 'SET_LOADING', payload: true })
     const posts = yield call(getPostsData)
     if (posts.status !== 200) {
@@ -11,8 +12,9 @@ function* getPosts() {
         type: 'SET_ERROR',
         payload: posts.data.message
       })
+    } else {
+      yield put({ type: 'SET_POSTS', payload: posts.data })
     }
-    yield put({ type: 'SET_POSTS', payload: posts.data })
     yield put({ type: 'SET_LOADING', payload: false })
   } catch (e) {
     yield put({
@@ -23,5 +25,5 @@ function* getPosts() {
 }
 
 export default function* watchGetPosts() {
-  yield takeEvery(INIT_POSTS, getPosts)
+  yield takeEvery(INIT_POSTS, initPosts)
 }

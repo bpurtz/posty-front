@@ -5,7 +5,7 @@ import { SET_CURRENT_POST } from '../types'
  *
  * @param {int || string} payload The id of the post that you wish to assign to the activePost state field
  */
-function* setCurrentPost({ payload }) {
+export function* setCurrentPost({ payload }) {
   yield put({ type: 'SET_ACTIVE_POST', payload })
 }
 

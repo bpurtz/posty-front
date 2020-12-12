@@ -1,7 +1,7 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { CLEAR_REFINED_POSTS } from '../types'
 
-function* clearRefinedPosts() {
+export function* clearRefinedPosts() {
   yield put({ type: 'CLEAR_REFINED' })
 }
 

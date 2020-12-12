@@ -9,13 +9,8 @@ import {
   Typography
 } from '@material-ui/core'
 import styles from './styles'
-import { withRouter } from 'react-router-dom'
 
-const PostCard = ({ classes, post, history }) => {
-  const handleButtonClick = () => {
-    history.push(`/post/${post.id}`)
-  }
-
+const PostCard = ({ classes, post, onClick }) => {
   return (
     <Card className={classes.content_wrap}>
       <CardContent>
@@ -27,7 +22,7 @@ const PostCard = ({ classes, post, history }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleButtonClick} color='primary' variant='outlined'>
+        <Button onClick={onClick} color='primary' variant='outlined'>
           Edit Post
         </Button>
       </CardActions>
@@ -36,9 +31,9 @@ const PostCard = ({ classes, post, history }) => {
 }
 
 PostCard.propTypes = {
-  classes: PropTypes.object,
-  post: PropTypes.object,
-  history: PropTypes.object
+  classes: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
-export default withRouter(withStyles(styles)(PostCard))
+export default withStyles(styles)(PostCard)

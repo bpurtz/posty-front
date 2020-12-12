@@ -5,7 +5,10 @@ import { SEARCH_POSTS } from '../types'
  *
  * @param {string} payload The title that you wish to use to refine the posts and populate the refinedPosts state field
  */
-function* searchPosts({ payload }) {
+export function* searchPosts({ payload } = {}) {
+  if (!payload) {
+    return
+  }
   yield put({ type: 'REFINE_POSTS', payload })
 }
 

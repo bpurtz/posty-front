@@ -1,4 +1,4 @@
-export default (theme) => ({
+const styles = (theme) => ({
   pagination_wrap: {
     width: '100%',
     display: 'grid',
@@ -9,3 +9,5 @@ export default (theme) => ({
     boxSizing: 'border-box'
   }
 })
+
+export default styles

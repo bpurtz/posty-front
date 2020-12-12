@@ -12,7 +12,8 @@ import {
 import pagesSpecs from './pages'
 import action from './redux/action'
 import { INIT_POSTS } from './redux/types'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
+import Loading from './components/Loading'
 
 const pages = pagesSpecs.map((spec) => ({
   Component: lazy(() => import(`./pages/${spec.name}`)),
@@ -30,7 +31,7 @@ function App() {
   return (
     <Provider store={store}>
       <Theme>
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<Loading />}>
           <ToastContainer
             position='bottom-right'
             closeOnClick
